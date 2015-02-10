@@ -279,9 +279,9 @@ $JSCompiler_prototypeAlias$$.$renderParentBlock$ = function $$JSCompiler_prototy
 };
 $JSCompiler_prototypeAlias$$.$renderBlock$ = function $$JSCompiler_prototypeAlias$$$$renderBlock$$($name$$62$$, $context$$2$$, $opt_blocks$$1$$) {
   if($opt_blocks$$1$$ && $name$$62$$ in $opt_blocks$$1$$) {
-    var $parent$$4_sb$$3$$ = new $goog$string$StringBuffer$$, $block$$ = $opt_blocks$$1$$[$name$$62$$];
-    delete $opt_blocks$$1$$[$name$$62$$];
-    $block$$($parent$$4_sb$$3$$, $context$$2$$, $opt_blocks$$1$$);
+    var $parent$$4_sb$$3$$ = new $goog$string$StringBuffer$$, $opt_blocks_local$$ = $twig$extend$$({}, $opt_blocks$$1$$);
+    delete $opt_blocks_local$$[$name$$62$$];
+    $opt_blocks$$1$$[$name$$62$$]($parent$$4_sb$$3$$, $context$$2$$, $opt_blocks_local$$);
     return $parent$$4_sb$$3$$.toString()
   }
   if($name$$62$$ in this.$blocks_$) {
