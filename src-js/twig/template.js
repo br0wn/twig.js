@@ -27,13 +27,13 @@ twig.Template = function(env) {
 	/** @private */
 	this.env_ = env;
 	
-	/** 
-	 * @type {Object.<twig.Template.Block>} 
+	/**
+	 * @type {Object.<twig.Template.Block>}
 	 */
 	this.blocks_ = [];
 	
-	/** 
-	 * @type {Object.<twig.Template.Block>} 
+	/**
+	 * @type {Object.<twig.Template.Block>}
 	 */
 	this.traits_ = {};
 };
@@ -85,7 +85,7 @@ twig.Template.prototype.getParent_ = goog.abstractMethod;
 
 /**
  * Returns a human readable representation of the template name.
- * 
+ *
  * @return {string}
  */
 twig.Template.prototype.getTemplateName = goog.abstractMethod;
@@ -93,7 +93,7 @@ twig.Template.prototype.getTemplateName = goog.abstractMethod;
 /**
  * @param {string} name
  * @param {Object} context
- * @param {Object.<twig.Template.Block>=} opt_blocks 
+ * @param {Object.<twig.Template.Block>=} opt_blocks
  * @return {string}
  */
 twig.Template.prototype.renderParentBlock = function(name, context, opt_blocks) {
@@ -116,17 +116,16 @@ twig.Template.prototype.renderParentBlock = function(name, context, opt_blocks) 
  * @param {string} name
  * @param {Object} context
  * @param {Object.<twig.Template.Block>=} opt_blocks
- * 
+ *
  * @return {string}
  */
 twig.Template.prototype.renderBlock = function(name, context, opt_blocks) {
 	if (opt_blocks && name in opt_blocks) {
 		var sb = new twig.StringBuffer();
-		
-		// FIXME: Do we need to make a copy of the available blocks?
-		var block = opt_blocks[name];
-		delete opt_blocks[name];
-		block(sb, context, opt_blocks);
+		var opt_blocks_local = twig.extend({}, opt_blocks);
+
+		delete opt_blocks_local[name];
+		opt_blocks[name](sb, context, opt_blocks_local);
 		
 		return sb.toString();
 	}
